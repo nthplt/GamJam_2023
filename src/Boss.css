@@ -1,0 +1,17 @@
+.boss-container
+{
+    width: 200px;
+    height: 200px;
+    background-color: #5d9494;
+    position: relative;
+    margin-inline: auto;
+    margin-block-start: 24px;
+}
+
+.droppable
+{
+    position: absolute;
+    inset: 0;
+    background-color: yellow;
+    z-index: 3000;
+}
