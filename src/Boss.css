@@ -8,10 +8,3 @@
     margin-block-start: 24px;
 }
 
-.droppable
-{
-    position: absolute;
-    inset: 0;
-    background-color: yellow;
-    z-index: 3000;
-}

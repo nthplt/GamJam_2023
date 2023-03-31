@@ -1,26 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Boss.css';
-import {useDrop} from "react-dnd";
-import {ItemTypes} from "./Constants";
+import LifeBar from "./LifeBar";
 
-const Boss = (props) => {
-    const {life, setLife} = props;
-    const [{ isOver }, drop] = useDrop(
-        () => ({
-            accept: ItemTypes.CARD,
-            drop: (monitor) => setLife(life - monitor.damage),
-            collect: (monitor) => ({
-                isOver: !!monitor.isOver(),
-                getDropResult: !!monitor.getDropResult()
-            }),
-        }),
-    []
-    )
+const Boss = ({onDrop}) => {
+
+    const [life , setLife] = useState(100)
+
+
     return (
-        <div className="boss-container" ref={drop}>
-            { isOver && (
-                <div className="droppable"></div>
-            )}
+        <div className="boss-container" >
+            <button onClick={() => onDrop(life,setLife)}></button>
+           <LifeBar life={life}/>
         </div>
     );
 };

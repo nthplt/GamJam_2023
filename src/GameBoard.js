@@ -4,15 +4,23 @@ import Boss from "./Boss";
 import Deck from "./Deck";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import DropZone from "./DropZone";
 
 const GameBoard = () => {
-    const [life, setLife] = useState(100)
+
+
+const getLifeState = (life,setLife) => {
+    console.log(life)
+    console.log(setLife)
+}
+
     return (
         <>
-            <LifeBar life={life} />
+
             <DndProvider backend={HTML5Backend}>
-                <Boss setLife={setLife} life={life} />
-                <Deck setLife={setLife} life={life} />
+                <DropZone/>
+                <Boss onDrop={getLifeState} />
+                <Deck  />
             </DndProvider>
 
         </>
