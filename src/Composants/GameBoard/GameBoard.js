@@ -34,6 +34,7 @@ const GameBoard = () => {
    * @param random Si les dégâts sont aléatoires, passe par Math.random
    */
   const attackBoss = (damage, random) => {
+
     if (random) {
       damage = Math.floor(Math.random() * damage);
     }
@@ -42,6 +43,8 @@ const GameBoard = () => {
     } else {
       setLifeBoss(0);
     }
+    const playerContainer = document.querySelector(".player-container");
+    playerContainer.classList.add("attack");
   };
 
   const bossTurn = () => {
@@ -113,14 +116,13 @@ const GameBoard = () => {
     const playerTurn = (props) =>
     {
         turn++;
-
+        console.log(props)
         if(props.type === "support") {
             selfEffect(props.heal, props.cleaning, props.immunity);
         } else if (props.type === "attack") {
             attackBoss(props.damage, props.random)
         }
-
-        setTimeout(() => bossTurn(), 1000);
+        // setTimeout(() => bossTurn(), 1000);
     };
 
   return (
@@ -131,11 +133,11 @@ const GameBoard = () => {
         </div>
         <div className="container-gameBoard">
           <Player
-          life={lifePlayer}
-          initialLifePlayer={initialLifePlayer}
-          bleedingPlayer={bleedingPlayer}
-          immunityPlayer={immunityPlayer}
-          stunPlayer={stunPlayer}
+            life={lifePlayer}
+            initialLifePlayer={initialLifePlayer}
+            bleedingPlayer={bleedingPlayer}
+            immunityPlayer={immunityPlayer}
+            stunPlayer={stunPlayer}
           />
           <Boss life={lifeBoss} initialLifeBoss={initialLifeBoss} />
 

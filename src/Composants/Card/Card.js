@@ -1,27 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Card.css";
-import { useDrag } from "react-dnd";
-import { ItemTypes } from "../Constants/Constants";
 
 const Card = (props) => {
-  // const [{ opacity }, dragRef] = useDrag(
-  //     () => ({
-  //         type: ItemTypes.CARD,
-  //         item: props,
-  //         collect: (monitor) => ({
-  //             item: monitor.getItem(),
-  //             opacity: monitor.isDragging() ? 0.5 : 1
-  //         })
-  //     }),
-  //     [damage]
-  // )
-  const handleClick = (ev) => {
-      const playerContainer = document.querySelector(".player-container");
-      playerContainer.classList.add("attack");
-
-        props.playerTurn(props);
+    const handleClick = (ev) => {
+        const attack = props.attacks;
         props.removeCard(props.index);
-  };
+        props.playerTurn(attack);
+    };
 
   const { title, img, description } = props;
 
