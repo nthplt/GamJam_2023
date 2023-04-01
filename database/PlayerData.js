@@ -18,3 +18,5 @@ const heros = [
         mana: 7,
     },
 ];
+
+export default heros;
