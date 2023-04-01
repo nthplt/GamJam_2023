@@ -52,3 +52,5 @@ const cardList = [
         random: true,
     },
 ];
+
+export default cardList

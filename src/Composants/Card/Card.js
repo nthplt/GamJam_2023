@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Card.css';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from "../Constants/Constants";
 
-const Card = ({attackBoss, removeCard, nextTurn, turn, index, title, img, description, damage}) => {
+const Card = (props) => {
     // const [{ opacity }, dragRef] = useDrag(
     //     () => ({
     //         type: ItemTypes.CARD,
@@ -15,16 +15,13 @@ const Card = ({attackBoss, removeCard, nextTurn, turn, index, title, img, descri
     //     }),
     //     [damage]
     // )
-
     const handleClick = (ev) =>
     {
-        if (turn === 1) {
-            nextTurn()
-            attackBoss(damage)
-            removeCard(index)
-        }
-
+        props.playerTurn(props);
+        props.removeCard(props.index);
     }
+
+    const {title, img, description} = props;
 
     return (
         <div className="card-container" onClick={() => handleClick()}>
