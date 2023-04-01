@@ -137,14 +137,16 @@ const GameBoard = () => {
         <div>
           {turn % 2 !== 0 ? "À vous de jouer" : "C'est à l'adversaire de jouer"}
         </div>
-        <Boss life={lifeBoss} initialLifeBoss={initialLifeBoss} />
-        <Player
+        <div className="container-gameBoard">
+          <Boss life={lifeBoss} initialLifeBoss={initialLifeBoss} />
+          <Player
           life={lifePlayer}
           initialLifePlayer={initialLifePlayer}
           bleedingPlayer={bleedingPlayer}
           immunityPlayer={immunityPlayer}
           stunPlayer={stunPlayer}
-        />
+          />
+        </div>
         <Deck playerTurn={playerTurn} />
       </DndProvider>
     </>

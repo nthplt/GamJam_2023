@@ -1,5 +1,6 @@
 import React from "react";
 import LifeBar from "../LifeBar/LifeBar";
+import "./Player.css";
 
 const Player = ({
   life,
