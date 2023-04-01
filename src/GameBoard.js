@@ -8,21 +8,28 @@ import DropZone from "./DropZone";
 
 const GameBoard = () => {
 
+    const [lifeBoss, setLifeBoss] = useState(200)
+    const initialLifeBoss = 200;
+    const [lifePlayer, setLifePlayer] = useState(100)
+    const [turn, setTurn] = useState(1)
 
-const getLifeState = (life,setLife) => {
-    console.log(life)
-    console.log(setLife)
-}
+    const attackBoss = (damage) =>
+    {
+        if (lifeBoss - damage > 0) {
+            setLifeBoss(lifeBoss - damage);
+        } else {
+            setLifeBoss(0);
+        }
+    }
 
     return (
         <>
-
             <DndProvider backend={HTML5Backend}>
-                <DropZone/>
-                <Boss onDrop={getLifeState} />
-                <Deck  />
+                <Boss life={lifeBoss} initialLifeBoss={initialLifeBoss} />
+                <Deck
+                    attackBoss={attackBoss}
+                />
             </DndProvider>
-
         </>
     );
 };

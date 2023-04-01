@@ -2,8 +2,7 @@ import React from 'react';
 import Card from './Card'
 import './Deck.css'
 
-const Deck = (props) => {
-    const {setLife, life} = props;
+const Deck = ({attackBoss}) => {
     const cards = [
         {
             title: "Monstre",
@@ -25,8 +24,7 @@ const Deck = (props) => {
                     <Card
                         key={card.title}
                         {...card}
-                        setLife={setLife}
-                        life={life}
+                        attackBoss={attackBoss}
                     />
                     );
                 })
