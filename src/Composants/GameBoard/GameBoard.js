@@ -15,9 +15,7 @@ const GameBoard = () => {
      * turn = 2 // Tour du monstre
      */
 
-    const [turn, setTurn] = useState(1)
-    let promisedSetState = (newState) => new Promise(resolve => setTurn(newState, resolve));
-
+    let turn = 1;
 
     /**
      * Propriétés concernant le boss
@@ -64,6 +62,7 @@ const GameBoard = () => {
             } else if (attack.type === "support") {
                 bossEffect(attack);
             }
+            turn++;
         }
     }
 
@@ -104,21 +103,17 @@ const GameBoard = () => {
     const [bleedingPlayer, setBleedingPlayer] = useState(false);
     const [stunPlayer, setStunPlayer] = useState(false);
 
-    const playerTurn = async (props) =>
+    const playerTurn = (props) =>
     {
-        async function nextTurn() {
-            await setTurn(turn + 1);
-        }
-
-        await nextTurn();
-
-        console.log(turn)
+        turn++;
 
         if(props.type === "support") {
             selfEffect(props.heal, props.cleaning, props.immunity);
         } else if (props.type === "attack") {
             attackBoss(props.damage, props.random)
         }
+
+        setTimeout(() => bossTurn(), 1000);
 
     }
 
@@ -135,10 +130,6 @@ const GameBoard = () => {
             setImmunityPlayer(true);
         }
     }
-
-    // useEffect(() => {
-    //     setTurn(turn + 1);
-    // }, [turn]);
 
     return (
         <>
