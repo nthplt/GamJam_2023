@@ -3,6 +3,7 @@ const enemyList = [
         name: "Adam",
         img: "./assets/images/monster.png",
         description: 'Le troll des océans',
+        life: 100,
         attacks: [
             {
                 type: 'attack',
@@ -20,3 +21,5 @@ const enemyList = [
         ],
     },
 ]
+
+export default enemyList
