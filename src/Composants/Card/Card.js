@@ -1,7 +1,7 @@
 import React from 'react';
 import './Card.css';
 import { useDrag } from 'react-dnd';
-import { ItemTypes } from "./Constants";
+import { ItemTypes } from "../Constants/Constants";
 
 const Card = ({attackBoss, title, img, description, damage}) => {
     // const [{ opacity }, dragRef] = useDrag(
