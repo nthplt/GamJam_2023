@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDrop} from "react-dnd";
-import {ItemTypes} from "./Constants";
+import {ItemTypes} from "../Constants/Constants";
 
 const DropZone = ({life ,setLife}) => {
 

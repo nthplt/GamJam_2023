@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './Boss.css';
-import LifeBar from "./LifeBar";
+import LifeBar from "../LifeBar/LifeBar";
 
 const Boss = ({onDrop}) => {
 

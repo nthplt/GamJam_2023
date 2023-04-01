@@ -1,10 +1,10 @@
 import React, {Fragment, useState} from 'react';
-import LifeBar from "./LifeBar";
-import Boss from "./Boss";
-import Deck from "./Deck";
+import LifeBar from "../LifeBar/LifeBar";
+import Boss from "../Boss/Boss";
+import Deck from "../Deck/Deck";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import DropZone from "./DropZone";
+import DropZone from "../DropZone/DropZone";
 
 const GameBoard = () => {
 
