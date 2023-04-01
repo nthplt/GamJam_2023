@@ -1,107 +1,114 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from "react";
 import Boss from "../Boss/Boss";
 import enemyList from "../../Database/EnemyData";
 import Deck from "../Deck/Deck";
 import Player from "../Player/Player";
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import DropZone from "../DropZone/DropZone";
-
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import "./GameBoard.css";
 const GameBoard = () => {
-
-    /**
-     * Propriétés concernant le déroulement du jeu
-     * turn = 1 // Tour du joueur
-     * turn = 2 // Tour du monstre
-     */
+  /**
+   * Propriétés concernant le déroulement du jeu
+   * turn = 1 // Tour du joueur
+   * turn = 2 // Tour du monstre
+   */
 
     let turn = 1;
 
-    /**
-     * Propriétés concernant le boss
-     */
+  /**
+   * Propriétés concernant le boss
+   */
 
-    const boss = enemyList[0];
+  const boss = enemyList[0];
 
-    const [lifeBoss, setLifeBoss] = useState(boss.life)
-    const initialLifeBoss = boss.life;
+  const [lifeBoss, setLifeBoss] = useState(boss.life);
+  const initialLifeBoss = boss.life;
 
-    const [immunityBoss, setImmunityBoss] = useState(false);
-    const [bleedingBoss, setBleedingBoss] = useState(false);
-    const [stunBoss, setStunBoss] = useState(false);
+  const [immunityBoss, setImmunityBoss] = useState(false);
+  const [bleedingBoss, setBleedingBoss] = useState(false);
+  const [stunBoss, setStunBoss] = useState(false);
 
-    /**
-     * Fonction permettant d'infliger des dégâts au boss
-     * @param damage Dégâts infligés par le joueur
-     * @param random Si les dégâts sont aléatoires, passe par Math.random
-     */
-    const attackBoss = (damage, random) =>
-    {
-        if (random) {
-            damage = Math.floor(Math.random() * damage)
-        }
-        if (lifeBoss - damage > 0) {
-            setLifeBoss(lifeBoss - damage);
-        } else {
-            setLifeBoss(0);
-        }
+  /**
+   * Fonction permettant d'infliger des dégâts au boss
+   * @param damage Dégâts infligés par le joueur
+   * @param random Si les dégâts sont aléatoires, passe par Math.random
+   */
+  const attackBoss = (damage, random) => {
+    if (random) {
+      damage = Math.floor(Math.random() * damage);
     }
-
-    const bossTurn = () =>
-    {
-        console.log(turn);
-        if (turn % 2 === 0) {
-            let attacks = boss.attacks;
-            if (lifeBoss === initialLifeBoss) {
-                attacks = attacks.filter(attack => !attack.heal);
-            }
-            const index = Math.floor(Math.random() * attacks.length)
-            let attack = attacks[index];
-            if (attack.type === "attack") {
-                bossAttack(attack);
-            } else if (attack.type === "support") {
-                bossEffect(attack);
-            }
-            turn++;
-        }
+    if (lifeBoss - damage > 0) {
+      setLifeBoss(lifeBoss - damage);
+    } else {
+      setLifeBoss(0);
     }
+  };
 
-    const bossAttack = (attack) =>
-    {
-        let damage = attack.damage;
-        if (attack.random) {
-            damage = Math.floor(Math.random() * damage)
-        }
-        if (lifePlayer - damage > 0) {
-            setLifePlayer(lifePlayer - damage);
-        } else {
-            setLifePlayer(0);
-        }
+  const bossTurn = () => {
+    console.log(turn);
+    if (turn % 2 === 0) {
+      let attacks = boss.attacks;
+      if (lifeBoss === initialLifeBoss) {
+        attacks = attacks.filter((attack) => !attack.heal);
+      }
+      const index = Math.floor(Math.random() * attacks.length);
+      let attack = attacks[index];
+      if (attack.type === "attack") {
+        bossAttack(attack);
+      } else if (attack.type === "support") {
+        bossEffect(attack);
+      }
     }
+  };
 
-    const bossEffect = (attack) =>
-    {
-        if (attack.heal && (lifeBoss + attack.heal <= initialLifeBoss)) {
-            setLifeBoss(lifeBoss + attack.heal)
-        }
-        if (attack.cleaning) {
-            setBleedingBoss(false);
-            setStunBoss(false);
-        }
-        if (attack.immunity) {
-            setImmunityBoss(true);
-        }
+  const bossAttack = (attack) => {
+    let damage = attack.damage;
+    if (attack.random) {
+      damage = Math.floor(Math.random() * damage);
     }
+    if (lifePlayer - damage > 0) {
+      setLifePlayer(lifePlayer - damage);
+    } else {
+      setLifePlayer(0);
+    }
+  };
 
-    /**
-     * Propriétés concernant le joueur
-     */
+  const bossEffect = (attack) => {
+    if (attack.heal && lifeBoss + attack.heal <= initialLifeBoss) {
+      setLifeBoss(lifeBoss + attack.heal);
+    }
+    if (attack.cleaning) {
+      setBleedingBoss(false);
+      setStunBoss(false);
+    }
+    if (attack.immunity) {
+      setImmunityBoss(true);
+    }
+  };
 
-    const [lifePlayer, setLifePlayer] = useState(100)
-    const initialLifePlayer = 100;
-    const [immunityPlayer, setImmunityPlayer] = useState(false);
-    const [bleedingPlayer, setBleedingPlayer] = useState(false);
-    const [stunPlayer, setStunPlayer] = useState(false);
+  /**
+   * Propriétés concernant le joueur
+   */
+
+  const [lifePlayer, setLifePlayer] = useState(100);
+  const initialLifePlayer = 100;
+  const [immunityPlayer, setImmunityPlayer] = useState(false);
+  const [bleedingPlayer, setBleedingPlayer] = useState(false);
+  const [stunPlayer, setStunPlayer] = useState(false);
+
+  const selfEffect = (heal, cleaning, immunity) =>
+  {
+      if (heal && lifePlayer + heal <= initialLifePlayer) {
+          setLifePlayer(lifePlayer + heal);
+      }
+      if (cleaning) {
+          setBleedingPlayer(false);
+          setStunPlayer(false);
+      }
+      if (immunity) {
+          setImmunityPlayer(false);
+      }
+  }
 
     const playerTurn = (props) =>
     {
@@ -114,41 +121,29 @@ const GameBoard = () => {
         }
 
         setTimeout(() => bossTurn(), 1000);
+    };
 
-    }
+  return (
+    <>
+      <DndProvider backend={HTML5Backend}>
+        <div>
+          {turn % 2 !== 0 ? "À vous de jouer" : "C'est à l'adversaire de jouer"}
+        </div>
+        <div className="container-gameBoard">
+          <Player
+          life={lifePlayer}
+          initialLifePlayer={initialLifePlayer}
+          bleedingPlayer={bleedingPlayer}
+          immunityPlayer={immunityPlayer}
+          stunPlayer={stunPlayer}
+          />
+          <Boss life={lifeBoss} initialLifeBoss={initialLifeBoss} />
 
-    const selfEffect = (heal, cleaning, immunity) =>
-    {
-        if (heal && (lifePlayer + heal <= initialLifePlayer)) {
-            setLifePlayer(lifePlayer + heal)
-        }
-        if (cleaning) {
-            setBleedingPlayer(false);
-            setStunPlayer(false);
-        }
-        if (immunity) {
-            setImmunityPlayer(true);
-        }
-    }
-
-    return (
-        <>
-            <DndProvider backend={HTML5Backend}>
-                <div>{turn % 2 !== 0 ? "À vous de jouer" : "C'est à l'adversaire de jouer"}</div>
-                <Boss life={lifeBoss} initialLifeBoss={initialLifeBoss} />
-                <Player
-                    life={lifePlayer}
-                    initialLifePlayer={initialLifePlayer}
-                    bleedingPlayer={bleedingPlayer}
-                    immunityPlayer={immunityPlayer}
-                    stunPlayer={stunPlayer}
-                />
-                <Deck
-                    playerTurn={playerTurn}
-                />
-            </DndProvider>
-        </>
-    );
+        </div>
+        <Deck playerTurn={playerTurn} />
+      </DndProvider>
+    </>
+  );
 };
 
 export default GameBoard;
