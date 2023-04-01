@@ -19,6 +19,8 @@ const Card = ({attackBoss, removeCard, nextTurn, turn, index, title, img, descri
     const handleClick = (ev) =>
     {
         if (turn === 1) {
+            const playerContainer = document.querySelector('.player-container');
+            playerContainer.classList.add('attack');
             nextTurn()
             attackBoss(damage)
             removeCard(index)

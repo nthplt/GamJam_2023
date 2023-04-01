@@ -1,12 +1,11 @@
 import React, {Fragment, useState} from 'react';
-import LifeBar from "../LifeBar/LifeBar";
+
 import Boss from "../Boss/Boss";
 import Deck from "../Deck/Deck";
 import Player from "../Player/Player";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import DropZone from "../DropZone/DropZone";
-
+import "./GameBoard.css"
 const GameBoard = () => {
 
     /**
@@ -50,9 +49,11 @@ const GameBoard = () => {
     return (
         <>
             <DndProvider backend={HTML5Backend}>
-                <div>{turn === 1 ? "À vous de jouer" : "C'est à l'adversaire de jouer"}</div>
-                <Boss life={lifeBoss} initialLifeBoss={initialLifeBoss} />
-                <Player life={lifePlayer} initialLifePlayer={initialLifePlayer}/>
+                <div className="Tour">{turn === 1 ? "À vous de jouer" : "C'est à l'adversaire de jouer"}</div>
+                <div className="container-gameBoard">
+                    <Player life={lifePlayer} initialLifePlayer={initialLifePlayer}/>
+                    <Boss life={lifeBoss} initialLifeBoss={initialLifeBoss} />
+                </div>
                 <Deck
                     attackBoss={attackBoss}
                     nextTurn={nextTurn}

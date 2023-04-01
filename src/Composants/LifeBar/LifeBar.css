@@ -1,9 +1,9 @@
-.ennemy-life-bar
+.life-bar
 {
-    margin-block-start: 24px;
+
     margin-inline: auto;
-    width: 400px;
-    height: 50px;
+    width: 200px;
+    height: 20px;
     border: solid 1px black;
     position: relative;
     display: flex;
@@ -11,7 +11,7 @@
     justify-content: center;
 }
 
-.ennemy-current-life
+.current-life
 {
     z-index: -1;
     position: absolute;
