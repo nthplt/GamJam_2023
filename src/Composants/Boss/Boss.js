@@ -5,7 +5,7 @@ import LifeBar from "../LifeBar/LifeBar";
 const Boss = ({life, initialLifeBoss}) => {
 
     return (
-        <div className="boss-container" >
+        <div className="boss-container">
            <LifeBar
                life={life}
                initialLifeBoss={initialLifeBoss}

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from '../Card/Card'
 import './Deck.css'
 
-const Deck = ({attackBoss}) => {
-    const cards = [
+const Deck = ({attackBoss, nextTurn, turn}) => {
+    let cardsData = [
         {
             title: "Monstre",
             img: "./assets/images/monster.png",
@@ -17,14 +17,26 @@ const Deck = ({attackBoss}) => {
             damage: 1,
         },
     ];
+
+    const [cards, setCards] = useState(cardsData);
+    const removeCard = (index) =>
+    {
+        let newCards = cards;
+        newCards.splice(index, 1);
+        setCards(newCards);
+    }
     return (
         <div className="deck-container">
-            { cards.map(card => {
+            { cards.map((card, index) => {
                 return(
                     <Card
                         key={card.title}
+                        index={index}
                         {...card}
                         attackBoss={attackBoss}
+                        removeCard={removeCard}
+                        nextTurn={nextTurn}
+                        turn={turn}
                     />
                     );
                 })

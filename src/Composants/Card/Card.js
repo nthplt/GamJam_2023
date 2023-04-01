@@ -3,7 +3,7 @@ import './Card.css';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from "../Constants/Constants";
 
-const Card = ({attackBoss, title, img, description, damage}) => {
+const Card = ({attackBoss, removeCard, nextTurn, turn, index, title, img, description, damage}) => {
     // const [{ opacity }, dragRef] = useDrag(
     //     () => ({
     //         type: ItemTypes.CARD,
@@ -15,8 +15,19 @@ const Card = ({attackBoss, title, img, description, damage}) => {
     //     }),
     //     [damage]
     // )
+
+    const handleClick = (ev) =>
+    {
+        if (turn === 1) {
+            nextTurn()
+            attackBoss(damage)
+            removeCard(index)
+        }
+
+    }
+
     return (
-        <div className="card-container" onClick={() => attackBoss(damage)}>
+        <div className="card-container" onClick={() => handleClick()}>
             <h2 className="card-title">{title}</h2>
             <img className="card-image" src={img} alt={'Image de la carte ' + title}/>
             <p className="card-description">{description}</p>
